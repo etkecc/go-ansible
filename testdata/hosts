@@ -1,0 +1,25 @@
+[customers]
+customer.host ansible_host=321.321.321.321
+
+[setup]
+setup.host ansible_host=123.123.123.123 ansible_user=setup-user ansible_become_password="a(*sEtuP1pass_\"5wOrD" ansible_port=123
+
+[etke_servers]
+[etke_servers:children]
+matrix_servers
+etke_overrides
+[etke_servers:vars]
+ansible_ssh_private_key_file=/from/group/vars
+
+[etke_hosts]
+[etke_hosts:children]
+customers
+setup
+
+[matrix_servers:children]
+etke_hosts
+
+[etke_overrides:children]
+etke_hosts
+[etke_overrides:vars]
+ansible_group_priority=10
