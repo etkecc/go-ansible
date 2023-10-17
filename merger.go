@@ -1,6 +1,6 @@
 package ansible
 
-func mergeHost(base, add *Host) *Host {
+func MergeHost(base, add *Host) *Host {
 	if base == nil && add == nil {
 		return nil
 	}

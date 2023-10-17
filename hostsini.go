@@ -198,7 +198,7 @@ func (i *Inventory) getGroupVars(groups []string) *Host {
 		if groupVars == nil {
 			continue
 		}
-		vars = mergeHost(vars, parseParams(i.groupParams(group)))
+		vars = MergeHost(vars, parseParams(i.groupParams(group)))
 	}
 
 	i.cacheGroupVars[cachekey] = vars
@@ -208,8 +208,8 @@ func (i *Inventory) getGroupVars(groups []string) *Host {
 func (i *Inventory) finalize(defaults *Host) {
 	for _, host := range i.Hosts {
 		host.Groups = i.findAllGroups(Uniq(host.Groups))
-		host = mergeHost(host, i.getGroupVars(host.Groups))
-		host = mergeHost(host, defaults)
+		host = MergeHost(host, i.getGroupVars(host.Groups))
+		host = MergeHost(host, defaults)
 		i.Hosts[host.Name] = host
 
 		for _, group := range host.Groups {
@@ -242,6 +242,6 @@ func (i *Inventory) Merge(h2 *Inventory) {
 	}
 
 	for name, host := range h2.Hosts {
-		i.Hosts[name] = mergeHost(i.Hosts[name], host)
+		i.Hosts[name] = MergeHost(i.Hosts[name], host)
 	}
 }
