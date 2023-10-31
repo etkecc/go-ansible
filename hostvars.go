@@ -164,12 +164,12 @@ func (hv HostVars) Domain() (base, domain string) {
 	}
 
 	base = strings.TrimSpace(hv.String("base_domain"))
-	domain = strings.TrimSpace(hv.String("matrix_domain"))
+	domain = strings.ReplaceAll(strings.TrimSpace(hv.String("matrix_domain")), "{{ base_domain }}", base)
 
 	hv[cachePrefix+"base"] = base
 	hv[cachePrefix+"domain"] = domain
 
-	return base, strings.ReplaceAll(domain, "{{ base_domain }}", base)
+	return base, domain
 }
 
 // Admin parses admin MXID
