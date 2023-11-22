@@ -42,6 +42,24 @@ func TestNewHostVars_NoExists(t *testing.T) {
 	}
 }
 
+func TestHostVarsHasTODOs(t *testing.T) {
+	tests := map[bool]string{
+		true:  "ToDo",
+		false: "any value",
+	}
+	for expected, input := range tests {
+		t.Run(input, func(t *testing.T) {
+			hv := HostVars{"key": input}
+
+			actual := hv.HasTODOs()
+
+			if expected != actual {
+				t.Error("value is invalid. Expected: '" + fmt.Sprintf("%t", expected) + "', actual: '" + fmt.Sprintf("%t", actual) + "'")
+			}
+		})
+	}
+}
+
 func TestString(t *testing.T) {
 	tests := map[string]any{
 		"valid": "valid",

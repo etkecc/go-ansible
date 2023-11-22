@@ -44,6 +44,16 @@ func NewHostVarsParser(input []byte) (HostVars, error) {
 	return vars, err
 }
 
+// HasTODOs returns true if there are any TODOs in hostvars
+func (hv HostVars) HasTODOs() bool {
+	for k := range hv {
+		if strings.ToLower(hv.String(k)) == todo {
+			return true
+		}
+	}
+	return false
+}
+
 // String returns string value
 func (hv HostVars) String(key string, optionalDefault ...string) string {
 	var zero string

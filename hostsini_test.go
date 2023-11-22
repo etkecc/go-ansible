@@ -25,6 +25,14 @@ var testInventory = &Inventory{Hosts: map[string]*Host{
 		BecomePass: "a(*sEtuP1pass_\"5wOrD",
 		PrivateKey: "/from/group/vars",
 	},
+	"todo.host": {
+		Name:       "todo.host",
+		Group:      "setup",
+		Host:       "TODO",
+		Port:       22,
+		User:       "root",
+		PrivateKey: "/from/group/vars",
+	},
 }}
 
 func TestNewHostsFile(t *testing.T) {
@@ -36,6 +44,7 @@ func TestNewHostsFile(t *testing.T) {
 	}
 	if actual == nil { //nolint:staticcheck // yes, that's the point
 		t.Error("parsed hosts file is nil")
+		return
 	}
 	t.Log("actual:")
 	for k, v := range actual.Hosts { //nolint:staticcheck // that's intended
@@ -75,6 +84,7 @@ func TestMatch(t *testing.T) {
 	actual := inv.Match("setup.host")
 	if actual == nil { //nolint:staticcheck // yes, that's the point
 		t.Error("matched host is nil")
+		return
 	}
 	if expected.Name != actual.Name { //nolint:staticcheck // that's intended
 		t.Error("name is invalid. Expected: '" + expected.Name + "', actual: '" + actual.Name + "'")
@@ -84,12 +94,9 @@ func TestMatch(t *testing.T) {
 func TestMerge(t *testing.T) {
 	expected := testInventory
 
-	actual := (&Inventory{}) //nolint:staticcheck // that's intended
+	actual := &Inventory{}
 	actual.Merge(testInventory)
 
-	if actual == nil { //nolint:staticcheck // yes, that's the point
-		t.Error("parsed hosts file is nil")
-	}
 	t.Log("actual:")
 	for k, v := range actual.Hosts {
 		t.Log(k, "=", fmt.Sprintf("%+v", v))
@@ -107,6 +114,12 @@ func TestMerge(t *testing.T) {
 		equal(t, host.SSHPass, a[name].SSHPass)
 		equal(t, host.BecomePass, a[name].BecomePass)
 		equal(t, host.PrivateKey, a[name].PrivateKey)
+	}
+}
+
+func TestHasTODOs(t *testing.T) {
+	if !testInventory.Hosts["todo.host"].HasTODOs() {
+		t.Error("host has no TODOs")
 	}
 }
 
