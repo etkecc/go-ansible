@@ -216,6 +216,18 @@ func (hv HostVars) Email() string {
 	return ""
 }
 
+// Emails returns all emails
+func (hv HostVars) Emails() []string {
+	emails := []string{}
+	keys := []string{"etke_service_monitoring_email", "matrix_monitoring_email", "devture_traefik_config_certificatesResolvers_acme_email", "matrix_ssl_lets_encrypt_support_email", "etke_subscription_email"}
+	for _, key := range keys {
+		if email := hv.String(key); email != "" {
+			emails = append(emails, email)
+		}
+	}
+	return Uniq(emails)
+}
+
 // MaintenanceEnabled returns bool
 func (hv HostVars) MaintenanceEnabled() bool {
 	keys := []string{"etke_service_maintenance_enabled", "injector_recurring_auto"}
