@@ -2,7 +2,7 @@
 customer.host ansible_host=321.321.321.321
 
 [setup]
-setup.host ansible_host=123.123.123.123 ansible_user=setup-user ansible_become_password="a(*sEtuP1pass_\"5wOrD" ansible_port=123
+setup.host ansible_host=123.123.123.123 ansible_user=setup-user ansible_become_password="a(*sEtuP1pass_\"5wOrD" ansible_port=123 ordered_at=2012-01-01_15:04:05
 todo.host ansible_host=TODO
 
 [etke_servers]

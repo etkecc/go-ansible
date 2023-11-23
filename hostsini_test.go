@@ -24,6 +24,7 @@ var testInventory = &Inventory{Hosts: map[string]*Host{
 		User:       "setup-user",
 		BecomePass: "a(*sEtuP1pass_\"5wOrD",
 		PrivateKey: "/from/group/vars",
+		OrderedAt:  "2012-01-01_15:04:05",
 	},
 	"todo.host": {
 		Name:       "todo.host",
