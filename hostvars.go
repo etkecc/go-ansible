@@ -235,6 +235,7 @@ func (hv HostVars) Emails() []string {
 			emails = append(emails, email)
 		}
 	}
+	emails = append(emails, hv.StringSlice("etke_subscription_emails")...)
 	return Uniq(emails)
 }
 
