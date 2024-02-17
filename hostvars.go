@@ -41,7 +41,16 @@ func NewHostVarsFile(f string) (HostVars, error) {
 func NewHostVarsParser(input []byte) (HostVars, error) {
 	var vars map[string]any
 	err := yaml.Unmarshal(input, &vars)
+	if err == nil {
+		precacheDomain(vars)
+	}
 	return vars, err
+}
+
+func precacheDomain(hv HostVars) {
+	base, domain := hv.Domain()
+	hv[cachePrefix+"domain"] = domain
+	hv[cachePrefix+"base"] = base
 }
 
 // HasTODOs returns true if there are any TODOs in hostvars
@@ -175,9 +184,6 @@ func (hv HostVars) Domain() (base, domain string) {
 
 	base = strings.TrimSpace(hv.String("base_domain"))
 	domain = strings.ReplaceAll(strings.TrimSpace(hv.String("matrix_domain")), "{{ base_domain }}", base)
-
-	hv[cachePrefix+"base"] = base
-	hv[cachePrefix+"domain"] = domain
 
 	return base, domain
 }

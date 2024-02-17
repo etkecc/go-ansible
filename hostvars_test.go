@@ -12,6 +12,8 @@ import (
 
 func TestNewHostVarsFile(t *testing.T) {
 	expected := readVarsYml(t, "testdata/host_vars/setup.host/vars.yml")
+	expected["__cache_domain"] = "setup.host"
+	expected["__cache_base"] = ""
 	actual, err := NewHostVarsFile("testdata/host_vars/setup.host/vars.yml")
 	if err != nil {
 		t.Error("file parsing failed", err)
