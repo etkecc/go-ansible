@@ -18,7 +18,7 @@ customers
 setup
 
 [matrix_servers:children]
-etke_hosts
+etke_hosts # test
 
 [etke_overrides:children]
 etke_hosts
