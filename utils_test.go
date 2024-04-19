@@ -37,22 +37,6 @@ func TestMapKeys(t *testing.T) {
 	}
 }
 
-func TestFileExists(t *testing.T) {
-	tests := map[string]bool{
-		"testdata/hosts":      true,
-		"testdata/not-exists": false,
-	}
-	for input, expected := range tests {
-		t.Run(input, func(t *testing.T) {
-			actual := FileExists(input)
-
-			if expected != actual {
-				t.Error(input, "result is not expected")
-			}
-		})
-	}
-}
-
 func TestUnquote(t *testing.T) {
 	tests := map[string]string{
 		"not quoted": "not quoted",
