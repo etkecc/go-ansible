@@ -1,7 +1,7 @@
-github.com/etkecc/go-kit v1.1.0 h1:o60MDILMwqWIOJnK0N0u6x1VbhKld72kNOotzZQoiEM=
-github.com/etkecc/go-kit v1.1.0/go.mod h1:ZFeQrvlMIV6OeZ4XJ090kkyNYRRN4+5wcg1vjnOKEGI=
-golang.org/x/exp v0.0.0-20240909161429-701f63a606c0 h1:e66Fs6Z+fZTbFBAxKfP3PALWBtpfqks2bwGcexMxgtk=
-golang.org/x/exp v0.0.0-20240909161429-701f63a606c0/go.mod h1:2TbTHSBQa924w8M6Xs1QcRcFwyucIwBGpK1p2f1YFFY=
+github.com/etkecc/go-kit v1.2.0 h1:+3ZvCfbnQM7N1Yu7s1iwhbffgUv2XTcz8Go71Z3CBp4=
+github.com/etkecc/go-kit v1.2.0/go.mod h1:yikghi8YaYbTjRXNtx82g0LFv90YqZi2vLf5Chw0ysg=
+golang.org/x/exp v0.0.0-20241009180824-f66d83c29e7c h1:7dEasQXItcW1xKJ2+gg5VOiBnqWrJc+rq0DPKyvvdbY=
+golang.org/x/exp v0.0.0-20241009180824-f66d83c29e7c/go.mod h1:NQtJDoLvd6faHhE7m4T/1IY708gDefGGjR/iUW8yQQ8=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 h1:yhCVgyC4o1eVCa2tZl7eS0r+SDo693bJlVdllGtEeKM=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=

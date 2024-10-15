@@ -7,6 +7,7 @@ import (
 	"path"
 	"path/filepath"
 	"strings"
+	"sync"
 
 	"github.com/etkecc/go-kit"
 )
@@ -29,15 +30,22 @@ func ParseInventory(ansibleCfg, hostsini, limit string) *Inventory {
 	if inv == nil {
 		return nil
 	}
-	for name := range inv.Hosts {
-		inv.Hosts[name].Dirs, inv.Hosts[name].Files = parseAdditionalFiles(paths, name)
 
-		vars := parseHostVars(paths, name)
-		if vars == nil {
-			continue
-		}
-		inv.Hosts[name].Vars = vars
+	var wg sync.WaitGroup
+	for name := range inv.Hosts {
+		wg.Add(1)
+		go func(name string, wg *sync.WaitGroup) {
+			defer wg.Done()
+			inv.Hosts[name].Dirs, inv.Hosts[name].Files = parseAdditionalFiles(paths, name)
+
+			vars := parseHostVars(paths, name)
+			if vars == nil {
+				return
+			}
+			inv.Hosts[name].Vars = vars
+		}(name, &wg)
 	}
+	wg.Wait()
 	return inv
 }
 
