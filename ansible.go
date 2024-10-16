@@ -60,6 +60,9 @@ func parseHostsFiles(paths, only []string, defaults *Host) *Inventory {
 			log.Println("cannot parse", path, "error:", err)
 			continue
 		}
+		if parsedInv != nil {
+			parsedInv.Paths = []string{path}
+		}
 
 		inv.Merge(parsedInv)
 	}

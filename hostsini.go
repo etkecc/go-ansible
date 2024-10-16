@@ -26,6 +26,7 @@ type Inventory struct {
 	GroupVars map[string]map[string]string // group vars
 	GroupTree map[string][]string          // raw group tree
 	Hosts     map[string]*Host             // hosts-by-name
+	Paths     []string                     // all inventory paths
 }
 
 // Host is a parsed host
@@ -255,9 +256,14 @@ func (i *Inventory) Merge(h2 *Inventory) {
 	if i.Hosts == nil {
 		i.Hosts = make(map[string]*Host)
 	}
+	if i.Paths == nil {
+		i.Paths = make([]string, 0)
+	}
 	if h2 == nil {
 		return
 	}
+
+	i.Paths = kit.Uniq(append(i.Paths, h2.Paths...))
 
 	for group := range h2.Groups {
 		if _, ok := i.Groups[group]; !ok {
