@@ -43,6 +43,9 @@ func ParseInventory(ansibleCfg, hostsini, limit string) *Inventory {
 				return
 			}
 			inv.Hosts[name].Vars = vars
+			if sshPrivateKey := inv.Hosts[name].Vars.String("ansible_ssh_private_key_file"); sshPrivateKey != "" {
+				inv.Hosts[name].PrivateKeys = kit.Uniq(append(inv.Hosts[name].PrivateKeys, sshPrivateKey))
+			}
 		}(name, &wg)
 	}
 	wg.Wait()

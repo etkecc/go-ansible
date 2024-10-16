@@ -2,6 +2,35 @@ package ansible
 
 import "testing"
 
+var testAnsibleInventory = &Inventory{Hosts: map[string]*Host{
+	"customer.host": {
+		Name:        "customer.host",
+		Group:       "customers",
+		Host:        "321.321.321.321",
+		Port:        22,
+		User:        "root",
+		PrivateKeys: []string{"/from/group/vars", "/from/host/vars"},
+	},
+	"setup.host": {
+		Name:        "setup.host",
+		Group:       "setup",
+		Host:        "123.123.123.123",
+		Port:        123,
+		User:        "setup-user",
+		BecomePass:  "a(*sEtuP1pass_\"5wOrD",
+		PrivateKeys: []string{"/from/group/vars", "/from/host/vars"},
+		OrderedAt:   "2012-01-01_15:04:05",
+	},
+	"todo.host": {
+		Name:        "todo.host",
+		Group:       "setup",
+		Host:        "TODO",
+		Port:        22,
+		User:        "root",
+		PrivateKeys: []string{"/from/group/vars"},
+	},
+}}
+
 func BenchmarkParseInventory(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		ParseInventory("testdata/ansible.cfg", "testdata/hosts", "")
@@ -9,7 +38,7 @@ func BenchmarkParseInventory(b *testing.B) {
 }
 
 func TestParseInventory(t *testing.T) {
-	expected := testInventory
+	expected := testAnsibleInventory
 
 	actual := ParseInventory("testdata/ansible.cfg", "testdata/hosts", "")
 	a := actual.Hosts
@@ -21,7 +50,9 @@ func TestParseInventory(t *testing.T) {
 		equal(t, host.Port, a[name].Port)
 		equal(t, host.SSHPass, a[name].SSHPass)
 		equal(t, host.BecomePass, a[name].BecomePass)
-		equal(t, host.PrivateKey, a[name].PrivateKey)
+		for i, key := range host.PrivateKeys {
+			equal(t, key, a[name].PrivateKeys[i])
+		}
 	}
 
 }

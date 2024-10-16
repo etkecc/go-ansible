@@ -30,19 +30,19 @@ type Inventory struct {
 
 // Host is a parsed host
 type Host struct {
-	Vars       HostVars // host vars
-	Dirs       []string
-	Files      map[string]string
-	Group      string   // main group
-	Groups     []string // all related groups
-	Name       string   // host name
-	Host       string   // host address
-	Port       int      // host port
-	User       string   // host user
-	SSHPass    string   // host ssh password
-	BecomePass string   // host become password
-	PrivateKey string   // host ssh private key
-	OrderedAt  string
+	Vars        HostVars // host vars
+	Dirs        []string
+	Files       map[string]string
+	Group       string   // main group
+	Groups      []string // all related groups
+	Name        string   // host name
+	Host        string   // host address
+	Port        int      // host port
+	User        string   // host user
+	SSHPass     string   // host ssh password
+	BecomePass  string   // host become password
+	PrivateKeys []string // host ssh private keys
+	OrderedAt   string
 }
 
 func (h *Host) FindFile(name string) (string, bool) {
@@ -78,7 +78,7 @@ func (h *Host) HasTODOs() bool {
 	if strings.ToLower(h.BecomePass) == todo {
 		return true
 	}
-	if strings.ToLower(h.PrivateKey) == todo {
+	if slices.Contains(h.PrivateKeys, todo) {
 		return true
 	}
 	if strings.ToLower(h.Name) == todo {
