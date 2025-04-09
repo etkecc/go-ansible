@@ -156,6 +156,9 @@ func (hv HostVars) FQN(key string) string {
 		if key == "grafana" {
 			key = "stats"
 		}
+		if key == "element_call" {
+			key = "call"
+		}
 		if base != "" {
 			return key + "." + base
 		}

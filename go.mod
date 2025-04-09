@@ -1,11 +1,11 @@
 module github.com/etkecc/go-ansible
 
-go 1.22.0
+go 1.23.0
 
-toolchain go1.23.1
+toolchain go1.24.1
 
 require (
-	github.com/etkecc/go-kit v1.5.0
-	golang.org/x/exp v0.0.0-20250128182459-e0ece0dbea4c
+	github.com/etkecc/go-kit v1.6.0
+	golang.org/x/exp v0.0.0-20250408133849-7e4ce0ab07d0
 	gopkg.in/yaml.v3 v3.0.1
 )
