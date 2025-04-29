@@ -137,7 +137,7 @@ func (hv HostVars) OSUser() string {
 }
 
 func (hv HostVars) OSGroup() string {
-	return hv.String("matrix_user_group", "matrix")
+	return hv.String("matrix_group_name", "matrix")
 }
 
 func (hv HostVars) OSPath() string {
